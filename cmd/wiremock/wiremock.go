@@ -71,10 +71,6 @@ func (wm *Wiremock) GetRequests(id string, limit int) (body string, err error) {
 	}
 }
 
-//func (wm *Wiremock) GetRequest(id string) (body string, err error) {
-//	return wm.performRequest(fmt.Sprintf("/requests/%s", id), http.MethodGet)
-//}
-
 // System endpoints
 
 func (wm *Wiremock) Reset() (body string, err error) {
