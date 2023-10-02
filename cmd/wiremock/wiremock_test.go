@@ -56,7 +56,7 @@ func TestWiremock_GetMappings(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.GetMappings(10, 0)
+	body, err := wmClient.GetMappings("", 10, 0)
 	if err != nil {
 		t.Fatal("Error while performing wiremock get mappings", err)
 	}
@@ -68,12 +68,12 @@ func TestWiremock_GetMappings(t *testing.T) {
 	}
 }
 
-func TestWiremock_GetMapping(t *testing.T) {
+func TestWiremock_GetMappingById(t *testing.T) {
 	wmClient, err := initWiremockClient()
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.GetMapping("0baca68a-0112-4f26-8529-ac12d8eb3720")
+	body, err := wmClient.GetMappings("0baca68a-0112-4f26-8529-ac12d8eb3720", 10, 0)
 	if err != nil {
 		t.Fatal("Error while performing wiremock get mappings", err)
 	}
@@ -82,6 +82,20 @@ func TestWiremock_GetMapping(t *testing.T) {
 	}
 	if !strings.Contains(body, "0baca68a-0112-4f26-8529-ac12d8eb3720") {
 		t.Fatal("Expected body to contain the correct mapping id but got", body)
+	}
+}
+
+func TestWiremock_GetMappingByIdNotFound(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.GetMappings("e148", 10, 0)
+	if err != nil {
+		t.Fatal("Error while performing wiremock get mappings", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to be empty but got", body)
 	}
 }
 
@@ -111,7 +125,7 @@ func TestWiremock_GetRequests(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.GetRequests()
+	body, err := wmClient.GetRequests("", 10)
 	if err != nil {
 		t.Fatal("Error while performing wiremock get requests", err)
 	}
@@ -120,6 +134,37 @@ func TestWiremock_GetRequests(t *testing.T) {
 	}
 	if !strings.Contains(body, "45760a03-eebb-4387-ad0d-bb89b5d3d662") {
 		t.Fatal("Expected body to contain the correct request but got", body)
+	}
+}
+
+func TestWiremock_GetRequestById(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.GetRequests("12fb14bb-600e-4bfa-bd8d-be7f12562c9", 10)
+	if err != nil {
+		t.Fatal("Error while performing wiremock get requests", err)
+	}
+	if body == "" {
+		t.Fatal("Expected body to not be empty but got", body)
+	}
+	if !strings.Contains(body, "12fb14bb-600e-4bfa-bd8d-be7f12562c9") {
+		t.Fatal("Expected body to contain the correct request id but got", body)
+	}
+}
+
+func TestWiremock_GetRequestByIdNotFound(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.GetRequests("mxp2", 10)
+	if err != nil {
+		t.Fatal("Error while performing wiremock get requests", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to be empty but got", body)
 	}
 }
 

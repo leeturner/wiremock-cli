@@ -2,8 +2,6 @@ package cmd
 
 import "github.com/spf13/cobra"
 
-var getCmd = NewGetCommand()
-
 func NewGetCommand() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "get",

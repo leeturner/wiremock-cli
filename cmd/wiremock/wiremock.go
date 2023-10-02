@@ -47,12 +47,12 @@ func (wm *Wiremock) performRequest(path string, method string) (body string, err
 
 // Mapping endpoints
 
-func (wm *Wiremock) GetMappings(limit int, offset int) (body string, err error) {
-	return wm.performRequest(fmt.Sprintf("/mappings?limit=%d&offset=%d", limit, offset), http.MethodGet)
-}
-
-func (wm *Wiremock) GetMapping(id string) (body string, err error) {
-	return wm.performRequest(fmt.Sprintf("/mappings/%s", id), http.MethodGet)
+func (wm *Wiremock) GetMappings(id string, limit int, offset int) (body string, err error) {
+	if id != "" {
+		return wm.performRequest(fmt.Sprintf("/mappings/%s", id), http.MethodGet)
+	} else {
+		return wm.performRequest(fmt.Sprintf("/mappings?limit=%d&offset=%d", limit, offset), http.MethodGet)
+	}
 }
 
 // Scenario endpoints
@@ -63,9 +63,17 @@ func (wm *Wiremock) GetScenarios() (body string, err error) {
 
 // Requests endpoints
 
-func (wm *Wiremock) GetRequests() (body string, err error) {
-	return wm.performRequest("/requests", http.MethodGet)
+func (wm *Wiremock) GetRequests(id string, limit int) (body string, err error) {
+	if id != "" {
+		return wm.performRequest(fmt.Sprintf("/requests/%s", id), http.MethodGet)
+	} else {
+		return wm.performRequest(fmt.Sprintf("/requests?limit=%d", limit), http.MethodGet)
+	}
 }
+
+//func (wm *Wiremock) GetRequest(id string) (body string, err error) {
+//	return wm.performRequest(fmt.Sprintf("/requests/%s", id), http.MethodGet)
+//}
 
 // System endpoints
 

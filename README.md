@@ -78,11 +78,11 @@ Global Flags:
 Use "wm get [command] --help" for more information about a command.
 ```
 
-We also support getting stub mappings by id:
+We also support getting stub mappings and requests by id:
 
 ```
 ./bin/wm get mappings -h
-Get stub mappings - if an id is specified then only that mapping is returned
+Get stub mappings - if an id is specified, only that mapping is returned
 
 Usage:
   wm get mappings [flags]
@@ -91,13 +91,38 @@ Examples:
 wm get mappings
 wm get mappings --limit 5
 wm get mappings --limit 5 --offset 10
-wm get mappings 0baca68a-0112-4f26-8529-ac12d8eb3720
+wm get mappings --id 0baca68a-0112-4f26-8529-ac12d8eb3720
 
 
 Flags:
   -h, --help         help for mappings
+  -i, --id string    Specify the id of the specific mapping you want to return
   -l, --limit int    Limit the number of mappings returned (only used if no id is specified) (default 10)
   -o, --offset int   Offset the returned mappings by this number (only used if no id is specified)
+
+Global Flags:
+  -a, --admin-prefix string   Wiremock admin url prefix (default "__admin")
+  -H, --host string           Wiremock host (default "http://localhost")
+  -p, --port string           Wiremock port (default "8080")
+```
+
+```
+./bin/wm get requests -h
+Get all requests in journal - if an id is specified, only that request is returned
+
+Usage:
+  wm get requests [flags]
+
+Examples:
+wm get requests
+wm get requests --limit 5
+wm get requests --id 0baca68a-0112-4f26-8529-ac12d8eb3720
+
+
+Flags:
+  -h, --help        help for requests
+  -i, --id string   Specify the id of the specific request you want to return
+  -l, --limit int   Limit the number of requests returned (only used if no id is specified) (default 10)
 
 Global Flags:
   -a, --admin-prefix string   Wiremock admin url prefix (default "__admin")

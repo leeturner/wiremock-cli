@@ -146,7 +146,7 @@
       "id": "6f916881-6110-42f4-8236-1b1feadac23a",
       "name": "Get request by ID (application/json)",
       "request": {
-        "urlPath": "/__test_admin/requests/06x8",
+        "urlPath": "/__test_admin/requests/12fb14bb-600e-4bfa-bd8d-be7f12562c9",
         "method": "GET",
         "headers": {
           "Accept": {
