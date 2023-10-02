@@ -24,26 +24,21 @@ wm get mappings 0baca68a-0112-4f26-8529-ac12d8eb3720
 		RunE: func(cmd *cobra.Command, args []string) error {
 			wm := wiremock.Init(Host, Port)
 			wm.WithAdminPrefix(AdminPrefix)
+			var mappings string
+			var err error
 			// we have an id, so we are only looking for a single mapping
 			if len(args) == 1 {
-				mapping, err := wm.GetMapping(args[0])
-				if err != nil {
-					return err
-				}
-				if mapping != "" {
-					cmd.Println(mapping)
-				}
+				mappings, err = wm.GetMapping(args[0])
 			} else {
 				// we don't have an id, so we are looking for all mappings
-				mappings, err := wm.GetMappings(limit, offset)
-				if err != nil {
-					return err
-				}
-				if mappings != "" {
-					cmd.Println(mappings)
-				}
+				mappings, err = wm.GetMappings(limit, offset)
 			}
-
+			if err != nil {
+				return err
+			}
+			if mappings != "" {
+				cmd.Println(mappings)
+			}
 			return nil
 		},
 	}
