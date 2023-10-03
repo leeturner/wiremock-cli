@@ -178,7 +178,7 @@
       "id": "5fb8b9bb-57bb-4e45-89b7-c5bf7df40e14",
       "name": "Delete request by ID - 200",
       "request": {
-        "urlPath": "/__test_admin/requests/t5b2",
+        "urlPath": "/__test_admin/requests/4a343193-a1bf-4b3e-a63b-8c734be18af1",
         "method": "DELETE"
       },
       "response": {

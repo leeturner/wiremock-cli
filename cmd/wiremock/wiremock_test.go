@@ -210,6 +210,34 @@ func TestWiremock_GetRequestByIdNotFound(t *testing.T) {
 	}
 }
 
+func TestWiremock_DeleteRequests(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.DeleteRequests("")
+	if err != nil {
+		t.Fatal("Error while performing wiremock get mappings", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to not be empty but got", body)
+	}
+}
+
+func TestWiremock_DeleteRequestsById(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.DeleteRequests("4a343193-a1bf-4b3e-a63b-8c734be18af1")
+	if err != nil {
+		t.Fatal("Error while performing wiremock get mappings", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to not be empty but got", body)
+	}
+}
+
 // System endpoints
 
 func TestWiremock_Shutdown(t *testing.T) {

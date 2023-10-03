@@ -79,6 +79,14 @@ func (wm *Wiremock) GetRequests(id string, limit int) (body string, err error) {
 	}
 }
 
+func (wm *Wiremock) DeleteRequests(id string) (body string, err error) {
+	if id != "" {
+		return wm.performRequest(fmt.Sprintf("/requests/%s", id), http.MethodDelete)
+	} else {
+		return wm.performRequest("/requests", http.MethodDelete)
+	}
+}
+
 // System endpoints
 
 func (wm *Wiremock) Reset() (body string, err error) {

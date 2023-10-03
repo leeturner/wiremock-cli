@@ -9,7 +9,7 @@ func NewDeleteCommand() *cobra.Command {
 		Long:  "Deletes resources from the Wiremock server",
 	}
 
-	cmd.AddCommand(NewDeleteMappingsCommand())
+	cmd.AddCommand(NewDeleteMappingsCommand(), NewDeleteRequestsCommand())
 
 	return cmd
 }
