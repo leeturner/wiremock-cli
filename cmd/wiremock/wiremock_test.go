@@ -9,7 +9,7 @@ import (
 
 const testAdminPrefix = "__test_admin"
 
-func initContainer() (host string, port string, err error) {
+func initContainer(t *testing.T) (host string, port string, err error) {
 	ctx := context.Background()
 	// Create Container - use the nightly build of wiremock
 	container, err := RunContainer(ctx,
@@ -29,11 +29,16 @@ func initContainer() (host string, port string, err error) {
 	}
 	containerPort := ports["8080/tcp"][0].HostPort
 
+	defer t.Cleanup(func() {
+		if err := container.Terminate(ctx); err != nil {
+			t.Fatalf("failed to terminate container: %s", err)
+		}
+	})
 	return containerHost, containerPort, nil
 }
 
-func initWiremockClient() (wmClient *Wiremock, err error) {
-	host, port, err := initContainer()
+func initWiremockClient(t *testing.T) (wmClient *Wiremock, err error) {
+	host, port, err := initContainer(t)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +57,7 @@ func TestInitClientIsNotNil(t *testing.T) {
 // Mapping endpoints
 
 func TestWiremock_GetMappings(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -69,7 +74,7 @@ func TestWiremock_GetMappings(t *testing.T) {
 }
 
 func TestWiremock_GetMappingById(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -86,7 +91,7 @@ func TestWiremock_GetMappingById(t *testing.T) {
 }
 
 func TestWiremock_GetMappingByIdNotFound(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -100,7 +105,7 @@ func TestWiremock_GetMappingByIdNotFound(t *testing.T) {
 }
 
 func TestWiremock_DeleteMappings(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -114,7 +119,7 @@ func TestWiremock_DeleteMappings(t *testing.T) {
 }
 
 func TestWiremock_DeleteMappingById(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -128,7 +133,7 @@ func TestWiremock_DeleteMappingById(t *testing.T) {
 }
 
 func TestWiremock_DeleteMappingByIdNotFound(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -144,7 +149,7 @@ func TestWiremock_DeleteMappingByIdNotFound(t *testing.T) {
 // Scenario endpoints
 
 func TestWiremock_GetScenarios(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -163,7 +168,7 @@ func TestWiremock_GetScenarios(t *testing.T) {
 // Request endpoints
 
 func TestWiremock_GetRequests(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -180,7 +185,7 @@ func TestWiremock_GetRequests(t *testing.T) {
 }
 
 func TestWiremock_GetRequestById(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -197,7 +202,7 @@ func TestWiremock_GetRequestById(t *testing.T) {
 }
 
 func TestWiremock_GetRequestByIdNotFound(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -211,7 +216,7 @@ func TestWiremock_GetRequestByIdNotFound(t *testing.T) {
 }
 
 func TestWiremock_DeleteRequests(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -225,7 +230,7 @@ func TestWiremock_DeleteRequests(t *testing.T) {
 }
 
 func TestWiremock_DeleteRequestsById(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -241,7 +246,7 @@ func TestWiremock_DeleteRequestsById(t *testing.T) {
 // System endpoints
 
 func TestWiremock_Shutdown(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
@@ -255,7 +260,7 @@ func TestWiremock_Shutdown(t *testing.T) {
 }
 
 func TestWiremock_Reset(t *testing.T) {
-	wmClient, err := initWiremockClient()
+	wmClient, err := initWiremockClient(t)
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}

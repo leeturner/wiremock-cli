@@ -5,7 +5,7 @@ import (
 )
 
 func TestShutdownCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"shutdown"})
+	result, err := ExecuteCommand([]string{"shutdown"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

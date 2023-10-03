@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetRequestsCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"get", "requests"})
+	result, err := ExecuteCommand([]string{"get", "requests"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
@@ -20,7 +20,7 @@ func TestGetRequestsCommand(t *testing.T) {
 }
 
 func TestGetRequestsCommandWithId(t *testing.T) {
-	result, err := ExecuteCommand([]string{"get", "requests", "--id", "12fb14bb-600e-4bfa-bd8d-be7f12562c9"})
+	result, err := ExecuteCommand([]string{"get", "requests", "--id", "12fb14bb-600e-4bfa-bd8d-be7f12562c9"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
@@ -31,7 +31,7 @@ func TestGetRequestsCommandWithId(t *testing.T) {
 }
 
 func TestGetRequestsCommandWithIdNotFound(t *testing.T) {
-	result, err := ExecuteCommand([]string{"get", "requests", "--id", "mxp2"})
+	result, err := ExecuteCommand([]string{"get", "requests", "--id", "mxp2"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

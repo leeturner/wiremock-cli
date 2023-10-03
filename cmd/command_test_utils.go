@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"context"
 	. "github.com/wiremock/wiremock-testcontainers-go"
+	"testing"
 )
 
 const testAdminPrefix = "__test_admin"
 
-func initContainer() (host string, port string, err error) {
+func initContainer(t *testing.T) (host string, port string, err error) {
 	ctx := context.Background()
 	// Create Container - use the nightly build of wiremock
 	container, err := RunContainer(ctx,
@@ -28,11 +29,16 @@ func initContainer() (host string, port string, err error) {
 	}
 	containerPort := ports["8080/tcp"][0].HostPort
 
+	defer t.Cleanup(func() {
+		if err := container.Terminate(ctx); err != nil {
+			t.Fatalf("failed to terminate container: %s", err)
+		}
+	})
 	return containerHost, containerPort, nil
 }
 
-func ExecuteCommand(args []string) (string, error) {
-	_, port, err := initContainer()
+func ExecuteCommand(args []string, t *testing.T) (string, error) {
+	_, port, err := initContainer(t)
 	if err != nil {
 		return "", err
 	}

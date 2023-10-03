@@ -5,7 +5,7 @@ import (
 )
 
 func TestDeleteMappingsCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"delete", "mappings"})
+	result, err := ExecuteCommand([]string{"delete", "mappings"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
@@ -16,7 +16,7 @@ func TestDeleteMappingsCommand(t *testing.T) {
 }
 
 func TestDeleteMappingsCommandWithId(t *testing.T) {
-	result, err := ExecuteCommand([]string{"delete", "mappings", "--id", "c15df170-16a4-4d21-8572-ffe6f5f660a3"})
+	result, err := ExecuteCommand([]string{"delete", "mappings", "--id", "c15df170-16a4-4d21-8572-ffe6f5f660a3"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
@@ -27,7 +27,7 @@ func TestDeleteMappingsCommandWithId(t *testing.T) {
 }
 
 func TestDeleteMappingCommandWithIdNotFound(t *testing.T) {
-	result, err := ExecuteCommand([]string{"delete", "mappings", "--id", "ekqg"})
+	result, err := ExecuteCommand([]string{"delete", "mappings", "--id", "ekqg"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

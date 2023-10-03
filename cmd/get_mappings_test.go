@@ -6,7 +6,7 @@ import (
 )
 
 func TestGetMappingsCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"get", "mappings"})
+	result, err := ExecuteCommand([]string{"get", "mappings"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
@@ -20,7 +20,7 @@ func TestGetMappingsCommand(t *testing.T) {
 }
 
 func TestGetMappingsCommandWithId(t *testing.T) {
-	result, err := ExecuteCommand([]string{"get", "mappings", "--id", "0baca68a-0112-4f26-8529-ac12d8eb3720"})
+	result, err := ExecuteCommand([]string{"get", "mappings", "--id", "0baca68a-0112-4f26-8529-ac12d8eb3720"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
@@ -31,7 +31,7 @@ func TestGetMappingsCommandWithId(t *testing.T) {
 }
 
 func TestGetMappingCommandWithIdNotFound(t *testing.T) {
-	result, err := ExecuteCommand([]string{"get", "mappings", "--id", "e148"})
+	result, err := ExecuteCommand([]string{"get", "mappings", "--id", "e148"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

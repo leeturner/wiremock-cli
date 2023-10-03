@@ -5,7 +5,7 @@ import (
 )
 
 func TestResetCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"reset"})
+	result, err := ExecuteCommand([]string{"reset"}, t)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}
