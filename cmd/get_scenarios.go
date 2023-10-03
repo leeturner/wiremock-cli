@@ -18,7 +18,9 @@ func NewGetScenariosCommand() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			cmd.Println(scenarios)
+			if scenarios != "" {
+				cmd.Println(scenarios)
+			}
 			return nil
 		},
 	}

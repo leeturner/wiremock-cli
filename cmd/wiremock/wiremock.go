@@ -55,6 +55,14 @@ func (wm *Wiremock) GetMappings(id string, limit int, offset int) (body string, 
 	}
 }
 
+func (wm *Wiremock) DeleteMappings(id string) (body string, err error) {
+	if id != "" {
+		return wm.performRequest(fmt.Sprintf("/mappings/%s", id), http.MethodDelete)
+	} else {
+		return wm.performRequest("/mappings", http.MethodDelete)
+	}
+}
+
 // Scenario endpoints
 
 func (wm *Wiremock) GetScenarios() (body string, err error) {

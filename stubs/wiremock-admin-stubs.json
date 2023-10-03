@@ -727,7 +727,7 @@
       "id": "e389a139-9845-43c7-b801-2a354bf5d1b6",
       "name": "Delete a stub mapping - 200",
       "request": {
-        "urlPath": "/__test_admin/mappings/2s51",
+        "urlPath": "/__test_admin/mappings/c15df170-16a4-4d21-8572-ffe6f5f660a3",
         "method": "DELETE"
       },
       "response": {

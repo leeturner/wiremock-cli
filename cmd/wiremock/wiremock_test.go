@@ -99,6 +99,48 @@ func TestWiremock_GetMappingByIdNotFound(t *testing.T) {
 	}
 }
 
+func TestWiremock_DeleteMappings(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.DeleteMappings("")
+	if err != nil {
+		t.Fatal("Error while performing wiremock get mappings", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to not be empty but got", body)
+	}
+}
+
+func TestWiremock_DeleteMappingById(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.DeleteMappings("c15df170-16a4-4d21-8572-ffe6f5f660a3")
+	if err != nil {
+		t.Fatal("Error while performing wiremock get mappings", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to not be empty but got", body)
+	}
+}
+
+func TestWiremock_DeleteMappingByIdNotFound(t *testing.T) {
+	wmClient, err := initWiremockClient()
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.DeleteMappings("ekqg")
+	if err != nil {
+		t.Fatal("Error while performing wiremock get mappings", err)
+	}
+	if body != "" {
+		t.Fatal("Expected body to be empty but got", body)
+	}
+}
+
 // Scenario endpoints
 
 func TestWiremock_GetScenarios(t *testing.T) {
