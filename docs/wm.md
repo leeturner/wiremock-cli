@@ -6,6 +6,7 @@ wm is a simple command line tool to access the Wiremock admin API
 
 wm is a simple command line tool to access the Wiremock admin API 
 
+```
 [34m██     ██ ██ ██████  ███████ [33m███    ███  ██████   ██████ ██   ██ 
 [34m██     ██ ██ ██   ██ ██      [33m████  ████ ██    ██ ██      ██  ██  
 [34m██  █  ██ ██ ██████  █████   [33m██ ████ ██ ██    ██ ██      █████   
@@ -17,7 +18,7 @@ wm is a simple command line tool to access the Wiremock admin API
 |                                                              |
 |               Slack: https://slack.wiremock.org              |
 ----------------------------------------------------------------
-
+```
 
 ### Options
 
