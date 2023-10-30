@@ -37,18 +37,14 @@ func initContainer(t *testing.T) (host string, port string, err error) {
 	return containerHost, containerPort, nil
 }
 
-func ExecuteCommand(args []string, t *testing.T) (string, error) {
-	_, port, err := initContainer(t)
-	if err != nil {
-		return "", err
-	}
+func ExecuteCommand(args []string, port string) (string, error) {
 	all := append(args, []string{"--port", port, "--admin-prefix", testAdminPrefix}...)
 	actual := new(bytes.Buffer)
 	rootCmd := NewRootCmd()
 	rootCmd.SetOut(actual)
 	rootCmd.SetErr(actual)
 	rootCmd.SetArgs(all)
-	err = rootCmd.Execute()
+	err := rootCmd.Execute()
 	if err != nil {
 		return "", err
 	}

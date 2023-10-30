@@ -5,7 +5,11 @@ import (
 )
 
 func TestShutdownCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"shutdown"}, t)
+	_, port, err := initContainer(t)
+	if err != nil {
+		t.Fatal("Error initialising container while running command test", err)
+	}
+	result, err := ExecuteCommand([]string{"shutdown"}, port)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

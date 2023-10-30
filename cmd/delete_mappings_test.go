@@ -1,38 +1,42 @@
 package cmd
 
 import (
+	"github.com/magiconair/properties/assert"
 	"testing"
 )
 
-func TestDeleteMappingsCommand(t *testing.T) {
-	result, err := ExecuteCommand([]string{"delete", "mappings"}, t)
+func TestDeleteMappingsCommands(t *testing.T) {
+	_, port, err := initContainer(t)
 	if err != nil {
-		t.Fatal("Error running command test", err)
+		t.Fatal("Error initialising container while running command test", err)
 	}
-	expected := ""
-	if result != expected {
-		t.Fatal("Unexpected output from command. Expected: ", expected, " Got: ", result)
+	test := map[string]struct {
+		args           []string
+		expectedOutput string
+		expectedError  error
+	}{
+		"Delete all mappings": {
+			args:           []string{"delete", "mappings"},
+			expectedOutput: "",
+			expectedError:  nil,
+		},
+		"Delete mapping by ID": {
+			args:           []string{"delete", "mappings", "--id", "c15df170-16a4-4d21-8572-ffe6f5f660a3"},
+			expectedOutput: "",
+			expectedError:  nil,
+		},
+		"Delete mapping by ID not found": {
+			args:           []string{"delete", "mappings", "--id", "ekqg"},
+			expectedOutput: "",
+			expectedError:  nil,
+		},
 	}
-}
 
-func TestDeleteMappingsCommandWithId(t *testing.T) {
-	result, err := ExecuteCommand([]string{"delete", "mappings", "--id", "c15df170-16a4-4d21-8572-ffe6f5f660a3"}, t)
-	if err != nil {
-		t.Fatal("Error running command test", err)
-	}
-	expected := ""
-	if result != expected {
-		t.Fatal("Unexpected output from command. Expected: ", expected, " Got: ", result)
-	}
-}
-
-func TestDeleteMappingCommandWithIdNotFound(t *testing.T) {
-	result, err := ExecuteCommand([]string{"delete", "mappings", "--id", "ekqg"}, t)
-	if err != nil {
-		t.Fatal("Error running command test", err)
-	}
-	expected := ""
-	if result != expected {
-		t.Fatal("Unexpected output from command. Expected: ", expected, " Got: ", result)
+	for name, tc := range test {
+		t.Run(name, func(t *testing.T) {
+			result, err := ExecuteCommand(tc.args, port)
+			assert.Equal(t, result, tc.expectedOutput)
+			assert.Equal(t, tc.expectedError, err)
+		})
 	}
 }

@@ -2,6 +2,7 @@ package wiremock
 
 import (
 	"context"
+	"github.com/magiconair/properties/assert"
 	. "github.com/wiremock/wiremock-testcontainers-go"
 	"strings"
 	"testing"
@@ -61,32 +62,35 @@ func TestWiremock_GetMappings(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.GetMappings("", 10, 0)
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
+	test := map[string]struct {
+		id               string
+		limit            int
+		offset           int
+		expectedContains string
+		expectedError    error
+	}{
+		"Get all mappings": {
+			id:               "",
+			limit:            10,
+			offset:           0,
+			expectedContains: "4aa0c0b4-a408-4b5e-9325-b3e024a9b674",
+			expectedError:    nil,
+		},
+		"Get mappings by id": {
+			id:               "0baca68a-0112-4f26-8529-ac12d8eb3720",
+			limit:            10,
+			offset:           0,
+			expectedContains: "0baca68a-0112-4f26-8529-ac12d8eb3720",
+			expectedError:    nil,
+		},
 	}
-	if body == "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-	if !strings.Contains(body, "4aa0c0b4-a408-4b5e-9325-b3e024a9b674") {
-		t.Fatal("Expected body to contain the correct mapping id but got", body)
-	}
-}
 
-func TestWiremock_GetMappingById(t *testing.T) {
-	wmClient, err := initWiremockClient(t)
-	if err != nil {
-		t.Fatal("Error initialising wiremock container or client", err)
-	}
-	body, err := wmClient.GetMappings("0baca68a-0112-4f26-8529-ac12d8eb3720", 10, 0)
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
-	}
-	if body == "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-	if !strings.Contains(body, "0baca68a-0112-4f26-8529-ac12d8eb3720") {
-		t.Fatal("Expected body to contain the correct mapping id but got", body)
+	for name, tc := range test {
+		t.Run(name, func(t *testing.T) {
+			actual, actualErr := wmClient.GetMappings(tc.id, tc.limit, tc.offset)
+			assert.Equal(t, true, strings.Contains(actual, tc.expectedContains))
+			assert.Equal(t, tc.expectedError, actualErr)
+		})
 	}
 }
 
@@ -109,40 +113,34 @@ func TestWiremock_DeleteMappings(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.DeleteMappings("")
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
+	test := map[string]struct {
+		id            string
+		expected      string
+		expectedError error
+	}{
+		"Delete all mappings": {
+			id:            "",
+			expected:      "",
+			expectedError: nil,
+		},
+		"Delete mappings by id": {
+			id:            "c15df170-16a4-4d21-8572-ffe6f5f660a3",
+			expected:      "",
+			expectedError: nil,
+		},
+		"Delete mappings by id not found": {
+			id:            "ekqg",
+			expected:      "",
+			expectedError: nil,
+		},
 	}
-	if body != "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-}
 
-func TestWiremock_DeleteMappingById(t *testing.T) {
-	wmClient, err := initWiremockClient(t)
-	if err != nil {
-		t.Fatal("Error initialising wiremock container or client", err)
-	}
-	body, err := wmClient.DeleteMappings("c15df170-16a4-4d21-8572-ffe6f5f660a3")
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-}
-
-func TestWiremock_DeleteMappingByIdNotFound(t *testing.T) {
-	wmClient, err := initWiremockClient(t)
-	if err != nil {
-		t.Fatal("Error initialising wiremock container or client", err)
-	}
-	body, err := wmClient.DeleteMappings("ekqg")
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to be empty but got", body)
+	for name, tc := range test {
+		t.Run(name, func(t *testing.T) {
+			actual, actualErr := wmClient.DeleteMappings(tc.id)
+			assert.Equal(t, tc.expected, actual)
+			assert.Equal(t, tc.expectedError, actualErr)
+		})
 	}
 }
 
@@ -153,15 +151,25 @@ func TestWiremock_GetScenarios(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.GetScenarios()
-	if err != nil {
-		t.Fatal("Error while performing wiremock get scenarios", err)
+	test := map[string]struct {
+		id               string
+		limit            int
+		offset           int
+		expectedContains string
+		expectedError    error
+	}{
+		"Get all mappings": {
+			expectedContains: "my_scenario",
+			expectedError:    nil,
+		},
 	}
-	if body == "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-	if !strings.Contains(body, "my_scenario") {
-		t.Fatal("Expected body to contain the correct scenario name but got", body)
+
+	for name, tc := range test {
+		t.Run(name, func(t *testing.T) {
+			actual, actualErr := wmClient.GetScenarios()
+			assert.Equal(t, true, strings.Contains(actual, tc.expectedContains))
+			assert.Equal(t, tc.expectedError, actualErr)
+		})
 	}
 }
 
@@ -172,32 +180,32 @@ func TestWiremock_GetRequests(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.GetRequests("", 10)
-	if err != nil {
-		t.Fatal("Error while performing wiremock get requests", err)
+	test := map[string]struct {
+		id               string
+		limit            int
+		expectedContains string
+		expectedError    error
+	}{
+		"Get all requests": {
+			id:               "",
+			limit:            10,
+			expectedContains: "45760a03-eebb-4387-ad0d-bb89b5d3d662",
+			expectedError:    nil,
+		},
+		"Get requests by id": {
+			id:               "12fb14bb-600e-4bfa-bd8d-be7f12562c9",
+			limit:            10,
+			expectedContains: "12fb14bb-600e-4bfa-bd8d-be7f12562c9",
+			expectedError:    nil,
+		},
 	}
-	if body == "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-	if !strings.Contains(body, "45760a03-eebb-4387-ad0d-bb89b5d3d662") {
-		t.Fatal("Expected body to contain the correct request but got", body)
-	}
-}
 
-func TestWiremock_GetRequestById(t *testing.T) {
-	wmClient, err := initWiremockClient(t)
-	if err != nil {
-		t.Fatal("Error initialising wiremock container or client", err)
-	}
-	body, err := wmClient.GetRequests("12fb14bb-600e-4bfa-bd8d-be7f12562c9", 10)
-	if err != nil {
-		t.Fatal("Error while performing wiremock get requests", err)
-	}
-	if body == "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-	if !strings.Contains(body, "12fb14bb-600e-4bfa-bd8d-be7f12562c9") {
-		t.Fatal("Expected body to contain the correct request id but got", body)
+	for name, tc := range test {
+		t.Run(name, func(t *testing.T) {
+			actual, actualErr := wmClient.GetRequests(tc.id, tc.limit)
+			assert.Equal(t, true, strings.Contains(actual, tc.expectedContains))
+			assert.Equal(t, tc.expectedError, actualErr)
+		})
 	}
 }
 
@@ -220,26 +228,29 @@ func TestWiremock_DeleteRequests(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
-	body, err := wmClient.DeleteRequests("")
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
+	test := map[string]struct {
+		id            string
+		expected      string
+		expectedError error
+	}{
+		"Delete all requests": {
+			id:            "",
+			expected:      "",
+			expectedError: nil,
+		},
+		"Delete request by id": {
+			id:            "4a343193-a1bf-4b3e-a63b-8c734be18af1",
+			expected:      "",
+			expectedError: nil,
+		},
 	}
-	if body != "" {
-		t.Fatal("Expected body to not be empty but got", body)
-	}
-}
 
-func TestWiremock_DeleteRequestsById(t *testing.T) {
-	wmClient, err := initWiremockClient(t)
-	if err != nil {
-		t.Fatal("Error initialising wiremock container or client", err)
-	}
-	body, err := wmClient.DeleteRequests("4a343193-a1bf-4b3e-a63b-8c734be18af1")
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to not be empty but got", body)
+	for name, tc := range test {
+		t.Run(name, func(t *testing.T) {
+			actual, actualErr := wmClient.DeleteRequests(tc.id)
+			assert.Equal(t, tc.expected, actual)
+			assert.Equal(t, tc.expectedError, actualErr)
+		})
 	}
 }
 
