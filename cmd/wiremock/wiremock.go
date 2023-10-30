@@ -6,6 +6,8 @@ import (
 	"net/http"
 )
 
+const userAgentHeader = "User-Agent"
+const acceptHeader = "Accept"
 const defaultAdminPrefix = "__admin"
 
 type Wiremock struct {
@@ -28,13 +30,13 @@ func (wm *Wiremock) WithAdminPrefix(newAdminPrefix string) {
 }
 
 func (wm *Wiremock) performRequest(path string, method string) (body string, err error) {
-	url := wm.host + ":" + wm.port + "/" + wm.adminPrefix + path
+	url := fmt.Sprintf("%s:%s/%s%s", wm.host, wm.port, wm.adminPrefix, path)
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("User-Agent", "Wiremock CLI")
-	req.Header.Set("Accept", "application/json")
+	req.Header.Set(userAgentHeader, "Wiremock CLI")
+	req.Header.Set(acceptHeader, "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
