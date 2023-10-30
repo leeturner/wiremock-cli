@@ -38,6 +38,6 @@ func NewRootCmd() *cobra.Command {
 	cmd.PersistentFlags().StringVarP(&Port, "port", "p", "8080", "Wiremock port")
 	cmd.PersistentFlags().StringVarP(&AdminPrefix, "admin-prefix", "a", "__admin", "Wiremock admin url prefix")
 
-	cmd.AddCommand(NewResetCommand(), NewShutdownCommand(), NewGetCommand(), NewDeleteCommand())
+	cmd.AddCommand(NewResetCommand(), NewShutdownCommand(), NewGetCommand(), NewDeleteCommand(), NewDocsCommand())
 	return cmd
 }

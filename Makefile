@@ -2,6 +2,7 @@
 
 clean:
 	rm -rf bin
+	rm -rf docs
 
 build: clean
 	mkdir -p bin
@@ -14,7 +15,12 @@ run:
 	./bin/wm
 	
 
+generate-docs: build
+	mkdir -p docs
+	./bin/wm docs
+	
+
 fmt:
 	go fmt ./... && go vet ./...
 	
-all: fmt clean build run
+all: fmt clean generate-docs run
