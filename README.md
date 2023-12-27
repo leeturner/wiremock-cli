@@ -57,6 +57,7 @@ found [here](docs/wm.md).
 * [ ] POST - /__admin/scenarios/reset - Reset the state of all scenarios
 
 ### System
+* [x] GET - /__admin/version - Return the WireMock version
 * [x] POST - /__admin/shutdown - Shutdown WireMock
 * [x] POST - /__admin/reset - Reset mappings and request journal
 * [ ] POST - /__admin/settings - Update global WireMock settings

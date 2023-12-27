@@ -24,6 +24,33 @@
       }
     },
     {
+      "id": "6de64080-3f64-49c7-99d8-e2cb17706700",
+      "name": "Display the Wiremock Version - 200",
+      "request": {
+        "urlPath": "/__test_admin/version",
+        "method": "GET"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n \"version\": \"3.3.1\" \n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6de64080-3f64-49c7-99d8-e2cb17706700",
+      "persistent": true,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2023-03-28T09:24:13.983418Z",
+            "via": "OAS3_IMPORT",
+            "by": "wd14g"
+          },
+          "response-name": "Display the Wiremock Version - 200"
+        }
+      }
+    },
+    {
       "id": "b9fd606e-c91c-4c55-9fb0-554825cf8818",
       "name": "Update global settings - 200",
       "request": {

@@ -270,6 +270,20 @@ func TestWiremock_Shutdown(t *testing.T) {
 	}
 }
 
+func TestWiremock_Version(t *testing.T) {
+	wmClient, err := initWiremockClient(t)
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.Version()
+	if err != nil {
+		t.Fatal("Error while performing wiremock shutdown", err)
+	}
+	if !strings.Contains(body, "3.3.1") {
+		t.Fatal("Expected body to contain version number but got", body)
+	}
+}
+
 func TestWiremock_Reset(t *testing.T) {
 	wmClient, err := initWiremockClient(t)
 	if err != nil {

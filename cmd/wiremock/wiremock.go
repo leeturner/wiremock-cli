@@ -98,3 +98,7 @@ func (wm *Wiremock) Reset() (body string, err error) {
 func (wm *Wiremock) Shutdown() (body string, err error) {
 	return wm.performRequest("/shutdown", http.MethodPost)
 }
+
+func (wm *Wiremock) Version() (body string, err error) {
+	return wm.performRequest("/version", http.MethodGet)
+}
