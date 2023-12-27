@@ -39,7 +39,7 @@ found [here](docs/wm.md).
 * [ ] POST - /__admin/requests/remove-by-metadata - Remove requests by matching metadata
 * [ ] POST - /__admin/requests/find - Find requests by criteria
 * [ ] POST - /__admin/requests/find-by-metadata - Find requests by matching metadata
-* [ ] GET - /__admin/requests/unmatched - Get all unmatched requests in journal
+* [x] GET - /__admin/requests/unmatched - Get all unmatched requests in journal
 
 ### Near Misses
 * [ ] GET - /__admin/requests/unmatched/near-misses - Get all near misses for unmatched requests

@@ -88,8 +88,8 @@ func TestWiremock_GetMappings(t *testing.T) {
 	for name, tc := range test {
 		t.Run(name, func(t *testing.T) {
 			actual, actualErr := wmClient.GetMappings(tc.id, tc.limit, tc.offset)
-			assert.Equal(t, true, strings.Contains(actual, tc.expectedContains))
-			assert.Equal(t, tc.expectedError, actualErr)
+			assert.Equal(t, strings.Contains(actual, tc.expectedContains), true)
+			assert.Equal(t, actualErr, tc.expectedError)
 		})
 	}
 }
@@ -100,12 +100,8 @@ func TestWiremock_GetMappingByIdNotFound(t *testing.T) {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
 	body, err := wmClient.GetMappings("e148", 10, 0)
-	if err != nil {
-		t.Fatal("Error while performing wiremock get mappings", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to be empty but got", body)
-	}
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
 }
 
 func TestWiremock_DeleteMappings(t *testing.T) {
@@ -138,8 +134,8 @@ func TestWiremock_DeleteMappings(t *testing.T) {
 	for name, tc := range test {
 		t.Run(name, func(t *testing.T) {
 			actual, actualErr := wmClient.DeleteMappings(tc.id)
-			assert.Equal(t, tc.expected, actual)
-			assert.Equal(t, tc.expectedError, actualErr)
+			assert.Equal(t, actual, tc.expected)
+			assert.Equal(t, actualErr, tc.expectedError)
 		})
 	}
 }
@@ -167,8 +163,8 @@ func TestWiremock_GetScenarios(t *testing.T) {
 	for name, tc := range test {
 		t.Run(name, func(t *testing.T) {
 			actual, actualErr := wmClient.GetScenarios()
-			assert.Equal(t, true, strings.Contains(actual, tc.expectedContains))
-			assert.Equal(t, tc.expectedError, actualErr)
+			assert.Equal(t, strings.Contains(actual, tc.expectedContains), true)
+			assert.Equal(t, actualErr, tc.expectedError)
 		})
 	}
 }
@@ -203,10 +199,20 @@ func TestWiremock_GetRequests(t *testing.T) {
 	for name, tc := range test {
 		t.Run(name, func(t *testing.T) {
 			actual, actualErr := wmClient.GetRequests(tc.id, tc.limit)
-			assert.Equal(t, true, strings.Contains(actual, tc.expectedContains))
-			assert.Equal(t, tc.expectedError, actualErr)
+			assert.Equal(t, strings.Contains(actual, tc.expectedContains), true)
+			assert.Equal(t, actualErr, tc.expectedError)
 		})
 	}
+}
+
+func TestWiremock_GetUnmatchedRequests(t *testing.T) {
+	wmClient, err := initWiremockClient(t)
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.GetUnmatchedRequests()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, strings.Contains(body, "my.other.domain.com/my/other/url"), true)
 }
 
 func TestWiremock_GetRequestByIdNotFound(t *testing.T) {
@@ -215,12 +221,8 @@ func TestWiremock_GetRequestByIdNotFound(t *testing.T) {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
 	body, err := wmClient.GetRequests("mxp2", 10)
-	if err != nil {
-		t.Fatal("Error while performing wiremock get requests", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to be empty but got", body)
-	}
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
 }
 
 func TestWiremock_DeleteRequests(t *testing.T) {
@@ -248,8 +250,8 @@ func TestWiremock_DeleteRequests(t *testing.T) {
 	for name, tc := range test {
 		t.Run(name, func(t *testing.T) {
 			actual, actualErr := wmClient.DeleteRequests(tc.id)
-			assert.Equal(t, tc.expected, actual)
-			assert.Equal(t, tc.expectedError, actualErr)
+			assert.Equal(t, actual, tc.expected)
+			assert.Equal(t, actualErr, tc.expectedError)
 		})
 	}
 }
@@ -262,12 +264,8 @@ func TestWiremock_Shutdown(t *testing.T) {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
 	body, err := wmClient.Shutdown()
-	if err != nil {
-		t.Fatal("Error while performing wiremock shutdown", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to be empty but got", body)
-	}
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
 }
 
 func TestWiremock_Version(t *testing.T) {
@@ -276,12 +274,8 @@ func TestWiremock_Version(t *testing.T) {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
 	body, err := wmClient.Version()
-	if err != nil {
-		t.Fatal("Error while performing wiremock shutdown", err)
-	}
-	if !strings.Contains(body, "3.3.1") {
-		t.Fatal("Expected body to contain version number but got", body)
-	}
+	assert.Equal(t, err, nil)
+	assert.Equal(t, strings.Contains(body, "3.3.1"), true)
 }
 
 func TestWiremock_Reset(t *testing.T) {
@@ -290,10 +284,6 @@ func TestWiremock_Reset(t *testing.T) {
 		t.Fatal("Error initialising wiremock container or client", err)
 	}
 	body, err := wmClient.Reset()
-	if err != nil {
-		t.Fatal("Error while performing wiremock reset", err)
-	}
-	if body != "" {
-		t.Fatal("Expected body to be empty but got", body)
-	}
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
 }

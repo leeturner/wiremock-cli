@@ -16,7 +16,7 @@ func NewGetRequestsCommand() *cobra.Command {
 		Use:   "get",
 		Short: "Get all requests in journal",
 		Long:  `Get all requests in journal - if an id is specified, only that request is returned`,
-		Example: `wm get requests
+		Example: `wm requests get
 wm requests get --limit 5
 wm requests get --id 0baca68a-0112-4f26-8529-ac12d8eb3720
 `,
@@ -34,6 +34,8 @@ wm requests get --id 0baca68a-0112-4f26-8529-ac12d8eb3720
 			return nil
 		},
 	}
+
+	cmd.AddCommand(NewGetUnmatchedRequestsCommand())
 
 	cmd.Flags().IntVarP(&limitRequests, "limit", "l", 10, "Limit the number of requests returned (only used if no id is specified)")
 	cmd.Flags().StringVarP(&requestId, "id", "i", "", "Specify the id of the specific request you want to return")
