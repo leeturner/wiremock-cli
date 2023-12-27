@@ -13,12 +13,12 @@ var (
 
 func NewGetRequestsCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "requests",
+		Use:   "get",
 		Short: "Get all requests in journal",
 		Long:  `Get all requests in journal - if an id is specified, only that request is returned`,
 		Example: `wm get requests
-wm get requests --limit 5
-wm get requests --id 0baca68a-0112-4f26-8529-ac12d8eb3720
+wm requests get --limit 5
+wm requests get --id 0baca68a-0112-4f26-8529-ac12d8eb3720
 `,
 		Args: cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {

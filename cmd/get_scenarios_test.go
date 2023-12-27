@@ -17,7 +17,7 @@ func TestNewGetScenariosCommand(t *testing.T) {
 		expectedError    error
 	}{
 		"Get all scenarios": {
-			args:             []string{"get", "scenarios"},
+			args:             []string{"scenarios", "get"},
 			expectedContains: "c8d249ec-d86d-48b1-88a8-a660e6848042",
 			expectedError:    nil,
 		},

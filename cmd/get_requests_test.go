@@ -17,12 +17,12 @@ func TestGetRequestsCommand(t *testing.T) {
 		expectedError    error
 	}{
 		"Get all requests": {
-			args:             []string{"get", "requests"},
+			args:             []string{"requests", "get"},
 			expectedContains: "45760a03-eebb-4387-ad0d-bb89b5d3d662",
 			expectedError:    nil,
 		},
 		"Get request by ID": {
-			args:             []string{"get", "requests", "--id", "12fb14bb-600e-4bfa-bd8d-be7f12562c9"},
+			args:             []string{"requests", "get", "--id", "12fb14bb-600e-4bfa-bd8d-be7f12562c9"},
 			expectedContains: "12fb14bb-600e-4bfa-bd8d-be7f12562c9",
 			expectedError:    nil,
 		},
@@ -42,7 +42,7 @@ func TestGetRequestsCommandWithIdNotFound(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising container while running command test", err)
 	}
-	result, err := ExecuteCommand([]string{"get", "requests", "--id", "mxp2"}, port)
+	result, err := ExecuteCommand([]string{"requests", "get", "--id", "mxp2"}, port)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

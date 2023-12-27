@@ -16,17 +16,17 @@ func TestDeleteMappingsCommands(t *testing.T) {
 		expectedError  error
 	}{
 		"Delete all mappings": {
-			args:           []string{"delete", "mappings"},
+			args:           []string{"mappings", "delete"},
 			expectedOutput: "",
 			expectedError:  nil,
 		},
 		"Delete mapping by ID": {
-			args:           []string{"delete", "mappings", "--id", "c15df170-16a4-4d21-8572-ffe6f5f660a3"},
+			args:           []string{"mappings", "delete", "--id", "c15df170-16a4-4d21-8572-ffe6f5f660a3"},
 			expectedOutput: "",
 			expectedError:  nil,
 		},
 		"Delete mapping by ID not found": {
-			args:           []string{"delete", "mappings", "--id", "ekqg"},
+			args:           []string{"mappings", "delete", "--id", "ekqg"},
 			expectedOutput: "",
 			expectedError:  nil,
 		},

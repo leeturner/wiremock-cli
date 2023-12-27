@@ -11,11 +11,11 @@ var (
 
 func NewDeleteMappingsCommand() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "mappings",
+		Use:   "delete",
 		Short: "Delete stub mappings",
 		Long:  `Delete stub mappings - if an id is specified, only that mapping is deleted`,
-		Example: `wm delete mappings
-wm delete mappings --id 0baca68a-0112-4f26-8529-ac12d8eb3720
+		Example: `wm mappings delete
+wm mappings delete --id 0baca68a-0112-4f26-8529-ac12d8eb3720
 `,
 		Args: cobra.RangeArgs(0, 1),
 		RunE: func(cmd *cobra.Command, args []string) error {

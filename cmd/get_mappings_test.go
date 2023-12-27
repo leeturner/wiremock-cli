@@ -17,12 +17,12 @@ func TestGetMappingsCommand(t *testing.T) {
 		expectedError    error
 	}{
 		"Get all mappings": {
-			args:             []string{"get", "mappings"},
+			args:             []string{"mappings", "get"},
 			expectedContains: "4aa0c0b4-a408-4b5e-9325-b3e024a9b674",
 			expectedError:    nil,
 		},
 		"Get mapping by ID": {
-			args:             []string{"get", "mappings", "--id", "0baca68a-0112-4f26-8529-ac12d8eb3720"},
+			args:             []string{"mappings", "get", "--id", "0baca68a-0112-4f26-8529-ac12d8eb3720"},
 			expectedContains: "0baca68a-0112-4f26-8529-ac12d8eb3720",
 			expectedError:    nil,
 		},
@@ -42,7 +42,7 @@ func TestGetMappingCommandWithIdNotFound(t *testing.T) {
 	if err != nil {
 		t.Fatal("Error initialising container while running command test", err)
 	}
-	result, err := ExecuteCommand([]string{"get", "mappings", "--id", "e148"}, port)
+	result, err := ExecuteCommand([]string{"mappings", "get", "--id", "e148"}, port)
 	if err != nil {
 		t.Fatal("Error running command test", err)
 	}

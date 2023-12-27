@@ -7,10 +7,10 @@ import (
 
 func NewGetScenariosCommand() *cobra.Command {
 	return &cobra.Command{
-		Use:     "scenarios",
+		Use:     "get",
 		Short:   "Get all scenarios",
 		Long:    `Get all scenarios`,
-		Example: "wm get scenarios",
+		Example: "wm scenarios get",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			wm := wiremock.Init(Host, Port)
 			wm.WithAdminPrefix(AdminPrefix)
