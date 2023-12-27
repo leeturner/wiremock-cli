@@ -13,7 +13,7 @@ wm mappings get [flags]
 ### Examples
 
 ```
-wm get mappings
+wm mappings get
 wm mappings get --limit 5
 wm mappings get --limit 5 --offset 10
 wm mappings get --id 0baca68a-0112-4f26-8529-ac12d8eb3720

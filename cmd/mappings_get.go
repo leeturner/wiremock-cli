@@ -16,7 +16,7 @@ func NewGetMappingsCommand() *cobra.Command {
 		Use:   "get",
 		Short: "Get stub mappings",
 		Long:  `Get stub mappings - if an id is specified, only that mapping is returned`,
-		Example: `wm get mappings
+		Example: `wm mappings get
 wm mappings get --limit 5
 wm mappings get --limit 5 --offset 10
 wm mappings get --id 0baca68a-0112-4f26-8529-ac12d8eb3720

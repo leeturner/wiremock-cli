@@ -256,6 +256,18 @@ func TestWiremock_DeleteRequests(t *testing.T) {
 	}
 }
 
+// Recording endpoints
+
+func TestWiremock_GetRecordingsStatus(t *testing.T) {
+	wmClient, err := initWiremockClient(t)
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.GetRecordingsStatus()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, strings.Contains(body, "Stopped"), true)
+}
+
 // System endpoints
 
 func TestWiremock_Shutdown(t *testing.T) {
