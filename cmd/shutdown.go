@@ -5,8 +5,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-//var shutdownCmd = NewShutdownCommand()
-
 func NewShutdownCommand() *cobra.Command {
 	return &cobra.Command{
 		Use:   "shutdown",
@@ -24,8 +22,4 @@ func NewShutdownCommand() *cobra.Command {
 			return nil
 		},
 	}
-}
-
-func init() {
-	//rootCmd.AddCommand(shutdownCmd)
 }

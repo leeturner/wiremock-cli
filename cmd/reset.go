@@ -5,8 +5,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-//var resetCmd = NewResetCommand()
-
 func NewResetCommand() *cobra.Command {
 	return &cobra.Command{
 		Use:   "reset",
