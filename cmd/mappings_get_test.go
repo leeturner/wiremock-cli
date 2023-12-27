@@ -31,8 +31,8 @@ func TestGetMappingsCommand(t *testing.T) {
 	for name, tc := range test {
 		t.Run(name, func(t *testing.T) {
 			result, err := ExecuteCommand(tc.args, port)
-			assert.Equal(t, true, strings.Contains(result, tc.expectedContains))
-			assert.Equal(t, tc.expectedError, err)
+			assert.Equal(t, strings.Contains(result, tc.expectedContains), true)
+			assert.Equal(t, err, tc.expectedError)
 		})
 	}
 }
@@ -47,7 +47,5 @@ func TestGetMappingCommandWithIdNotFound(t *testing.T) {
 		t.Fatal("Error running command test", err)
 	}
 	expected := ""
-	if result != expected {
-		t.Fatal("Unexpected output from command. Expected: ", expected, " Got: ", result)
-	}
+	assert.Equal(t, result, expected)
 }

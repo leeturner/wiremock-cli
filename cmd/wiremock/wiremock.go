@@ -65,6 +65,18 @@ func (wm *Wiremock) DeleteMappings(id string) (body string, err error) {
 	}
 }
 
+func (wm *Wiremock) ResetMappings() (body string, err error) {
+	return wm.performRequest("/mappings/reset", http.MethodPost)
+}
+
+func (wm *Wiremock) SaveMappings() (body string, err error) {
+	return wm.performRequest("/mappings/save", http.MethodPost)
+}
+
+func (wm *Wiremock) ImportMappings() (body string, err error) {
+	return wm.performRequest("/mappings/import", http.MethodPost)
+}
+
 // Scenario endpoints
 
 func (wm *Wiremock) GetScenarios() (body string, err error) {

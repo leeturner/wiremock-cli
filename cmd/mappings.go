@@ -9,7 +9,13 @@ func NewMappingsCommand() *cobra.Command {
 		Long:  "Handles all mappings commands for the Wiremock server",
 	}
 
-	cmd.AddCommand(NewGetMappingsCommand(), NewDeleteMappingsCommand())
+	cmd.AddCommand(
+		NewGetMappingsCommand(),
+		NewDeleteMappingsCommand(),
+		NewImportMappingsCommand(),
+		NewSaveMappingsCommand(),
+		NewResetMappingsCommand(),
+	)
 
 	return cmd
 }

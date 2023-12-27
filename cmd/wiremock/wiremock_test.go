@@ -104,6 +104,36 @@ func TestWiremock_GetMappingByIdNotFound(t *testing.T) {
 	assert.Equal(t, body, "")
 }
 
+func TestWiremock_ImportMappings(t *testing.T) {
+	wmClient, err := initWiremockClient(t)
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.ImportMappings()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
+}
+
+func TestWiremock_SaveMappings(t *testing.T) {
+	wmClient, err := initWiremockClient(t)
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.SaveMappings()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
+}
+
+func TestWiremock_ResetMappings(t *testing.T) {
+	wmClient, err := initWiremockClient(t)
+	if err != nil {
+		t.Fatal("Error initialising wiremock container or client", err)
+	}
+	body, err := wmClient.ResetMappings()
+	assert.Equal(t, err, nil)
+	assert.Equal(t, body, "")
+}
+
 func TestWiremock_DeleteMappings(t *testing.T) {
 	wmClient, err := initWiremockClient(t)
 	if err != nil {

@@ -24,9 +24,9 @@ found [here](docs/wm.md).
 * [x] DELETE - /__admin/mappings - Delete all stub mappings
 * [x] DELETE - /__admin/mappings/{id} - Delete a stub mapping by ID
 * [ ] POST - /__admin/mappings - Create a new stub mapping
-* [ ] POST - /__admin/mappings/import - Import stub mappings
-* [ ] POST - /__admin/mappings/save - Save stub mappings
-* [ ] POST - /__admin/mappings/reset - Reset stub mappings
+* [x] POST - /__admin/mappings/import - Import stub mappings
+* [x] POST - /__admin/mappings/save - Save stub mappings
+* [x] POST - /__admin/mappings/reset - Reset stub mappings
 * [ ] PUT - /__admin/mappings/{id} - Update a stub mapping by ID
 
 ### Requests
