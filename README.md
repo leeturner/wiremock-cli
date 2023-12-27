@@ -45,7 +45,7 @@ found [here](docs/wm.md).
 * [ ] GET - /__admin/requests/unmatched/near-misses - Get all near misses for unmatched requests
 * [ ] POST - /__admin/near-misses/request - Find near misses matching specific request
 * [ ] POST - /__admin/near-misses/request-pattern - Find near misses matching specific request pattern
-* 
+
 ### Recordings
 * [ ] GET - /__admin/recordings/status - Get recording status
 * [ ] POST - /__admin/recordings/start - Start recording
