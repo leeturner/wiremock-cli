@@ -33,6 +33,7 @@ wm is a simple command line tool to access the Wiremock admin API
 ### SEE ALSO
 
 * [wm mappings](wm_mappings.md)	 - Handles all mappings commands for the Wiremock server
+* [wm recordings](wm_recordings.md)	 - Stub mapping record and snapshot functions
 * [wm requests](wm_requests.md)	 - Handles all request commands for the Wiremock server
 * [wm reset](wm_reset.md)	 - Reset mappings & journal
 * [wm scenarios](wm_scenarios.md)	 - Handles all scenarios commands for the Wiremock server

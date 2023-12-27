@@ -93,6 +93,12 @@ func (wm *Wiremock) DeleteRequests(id string) (body string, err error) {
 	}
 }
 
+// Recordings endpoints
+
+func (wm *Wiremock) GetRecordingsStatus() (body string, err error) {
+	return wm.performRequest("/recordings/status", http.MethodGet)
+}
+
 // System endpoints
 
 func (wm *Wiremock) Reset() (body string, err error) {
