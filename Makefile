@@ -2,7 +2,7 @@
 
 clean:
 	rm -rf bin
-	rm -rf docs
+	rm -rf docs/*
 
 build: clean
 	mkdir -p bin
